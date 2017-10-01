@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace QuakeLogParser
 {
@@ -10,6 +11,9 @@ namespace QuakeLogParser
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+
+            EnableCorsAttribute corsAttribute = new EnableCorsAttribute("*", "*", "GET, POST");
+            config.EnableCors(corsAttribute);
 
             // Web API routes
             config.MapHttpAttributeRoutes();

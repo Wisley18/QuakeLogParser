@@ -1,0 +1,80 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+	  <title>Quake Log Parser</title>
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	  <!-- Latest compiled and minified CSS -->
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	</head>
+	<body>
+		
+		<div>
+			
+		</div>
+		
+		<div class="jumbotron">
+			<div class="container">
+				<h1 id="titulo">Selecione o a origem dos dados</h1>
+				<button class="btn btn-primary" onclick="ObterDadosArquivo()">Obter dados do Arquivo</button>
+				<button class="btn btn-primary" onclick="ObterDadosBanco()">Obter dados do Banco</button>
+			</div>
+		</div>	
+		
+		<div class="container">
+			<div id="apresenta-dados"></div>
+		</div>
+		
+		
+		<script type="text/javascript">
+			function limpar() 
+			{ 
+				$("#apresenta-dados").empty(); 
+			};
+			
+			
+		   function ObterDadosArquivo(){
+				$.getJSON("http://localhost:6423/api/v1/games/file", function( data ) {
+					console.log(data);
+					limpar();
+					$("#titulo").html('Dados obtidos do arquivo games.log');
+					$.each(data, function(i) {
+					$("#apresenta-dados").append('<div>' + data[i].Name +'</div>');
+					$("#apresenta-dados").append('<div>' + 'Total kills: ' + data[i].TotalKills +'</div>');
+					$("#apresenta-dados").append('<div>' + 'Players :' +'</div>');
+					var qtdePlayers = data[i].player.length;
+					for (j = 0; j<qtdePlayers; j++)
+					{
+						$("#apresenta-dados").append('<div style="margin-left: 30px;">' + '<p>' + data[i].player[j].Name + ': ' + data[i].player[j].Kills + '</p>' + '</div>');
+					}
+						
+					$("#apresenta-dados").append('<hr>');
+					});
+				});
+		   };
+		   
+		   function ObterDadosBanco(){
+				$.getJSON("http://localhost:6423/api/v1/games/bd", function( data ) {
+					console.log(data);
+					limpar();
+					$("#titulo").html('Dados obtidos do Banco de Dados');
+					$.each(data, function(i) {
+					$("#apresenta-dados").append('<div>' + data[i].Game +'</div>');
+					$("#apresenta-dados").append('<div>' + 'Total kills: ' + data[i].TotalKills +'</div>');
+					$("#apresenta-dados").append('<div>' + 'Qtde Players: ' + data[i].TotalPlayers +'</div>');
+					$("#apresenta-dados").append('<div>' + 'Players: ' +'</div>');
+					var qtdePlayers = data[i].Players.length;
+					for (j = 0; j<qtdePlayers; j++)
+					{
+						$("#apresenta-dados").append('<div style="margin-left: 30px;">' + '<p>' + data[i].Players[j].name + ': ' + data[i].Players[j].kills + '</p>' + '</div>');
+					}
+						
+					$("#apresenta-dados").append('<hr>');
+					});
+				});
+		   };
+		</script>
+	</body>
+</html>
+

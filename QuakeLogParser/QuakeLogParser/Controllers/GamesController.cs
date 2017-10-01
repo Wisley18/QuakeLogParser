@@ -15,49 +15,29 @@ namespace QuakeLogParser.Controllers
     {
         QuakeEntities bd = new QuakeEntities();
 
-        [HttpPost]
-        [Route("")]
-        public HttpResponseMessage PersistirInfo()
-        {
-            try
-            {
-                var partidas = QuakeLogParser();
-
-                if (bd.game.Count() > 0)
-                {
-                    return Request.CreateResponse(HttpStatusCode.Forbidden, "Os dados já foram persistidos no Banco de dados.");
-                }
-
-                using (bd)
-                {
-                    foreach (var partida in partidas)
-                    {
-                        bd.game.Add(partida);
-
-                        foreach (var jogador in partida.player)
-                        {
-                            bd.player.Add(jogador);
-                        }
-                    }
-
-                    bd.SaveChanges();
-                }
-
-
-                return Request.CreateResponse(HttpStatusCode.Created, "Informações persistidos no banco de dados.");
-            }
-            catch (Exception ex)
-            {
-                var erro = ex.Message;
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Falha ao cadastrar informações no banco");
-            }
-            
-        }
-
         [HttpGet]
         [Route("bd")]
         public HttpResponseMessage ObterInfoBd()
         {
+            var partidas = QuakeLogParser();
+
+            if (bd.game.Count() <= 0)
+            {
+
+                foreach (var partida in partidas)
+                {
+                    bd.game.Add(partida);
+
+                    foreach (var jogador in partida.player)
+                    {
+                        bd.player.Add(jogador);
+                    }
+                }
+
+                bd.SaveChanges();
+
+            }
+
             var games = bd.game.Include(m => m.player).ToList();
 
             var result  = from g in games select new { Game = g.Name, TotalKills = g.TotalKills, TotalPlayers = g.player.Count(), Players = from p in g.player select new { name = p.Name, kills = p.Kills} };
@@ -72,7 +52,7 @@ namespace QuakeLogParser.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, QuakeLogParser());
         }
         
-        private List<game> QuakeLogParser()
+        public List<game> QuakeLogParser()
         {
             var count = 1;
             var from = "";
