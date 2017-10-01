@@ -62,3 +62,19 @@ c:\users\wisley\documents\visual studio 2017\Projects\QuakeLogParser\QuakeLogPar
 c:\users\wisley\documents\visual studio 2017\Projects\QuakeLogParser\QuakeLogParser\obj\Debug\QuakeLogParser.csproj.CoreCompileInputs.cache
 c:\users\wisley\documents\visual studio 2017\Projects\QuakeLogParser\QuakeLogParser\obj\Debug\QuakeLogParser.dll
 c:\users\wisley\documents\visual studio 2017\Projects\QuakeLogParser\QuakeLogParser\obj\Debug\QuakeLogParser.pdb
+C:\Projetos\QuakeTeste\QuakeLogParse\QuakeLogParser\QuakeLogParser\obj\Debug\QuakeLogParser.dll
+C:\Projetos\QuakeTeste\QuakeLogParse\QuakeLogParser\QuakeLogParser\obj\Debug\QuakeLogParser.pdb
+C:\Projetos\QuakeTeste\QuakeLogParse\QuakeLogParser\QuakeLogParser\bin\QuakeLogParser.dll.config
+C:\Projetos\QuakeTeste\QuakeLogParse\QuakeLogParser\QuakeLogParser\bin\QuakeLogParser.dll
+C:\Projetos\QuakeTeste\QuakeLogParse\QuakeLogParser\QuakeLogParser\bin\QuakeLogParser.pdb
+C:\Projetos\QuakeTeste\QuakeLogParse\QuakeLogParser\QuakeLogParser\bin\Newtonsoft.Json.dll
+C:\Projetos\QuakeTeste\QuakeLogParse\QuakeLogParser\QuakeLogParser\bin\System.Net.Http.Formatting.dll
+C:\Projetos\QuakeTeste\QuakeLogParse\QuakeLogParser\QuakeLogParser\bin\System.Web.Http.dll
+C:\Projetos\QuakeTeste\QuakeLogParse\QuakeLogParser\QuakeLogParser\bin\System.Web.Http.WebHost.dll
+C:\Projetos\QuakeTeste\QuakeLogParse\QuakeLogParser\QuakeLogParser\bin\Newtonsoft.Json.xml
+C:\Projetos\QuakeTeste\QuakeLogParse\QuakeLogParser\QuakeLogParser\bin\System.Net.Http.Formatting.xml
+C:\Projetos\QuakeTeste\QuakeLogParse\QuakeLogParser\QuakeLogParser\bin\System.Web.Http.xml
+C:\Projetos\QuakeTeste\QuakeLogParse\QuakeLogParser\QuakeLogParser\bin\System.Web.Http.WebHost.xml
+C:\Projetos\QuakeTeste\QuakeLogParse\QuakeLogParser\QuakeLogParser\bin\EntityFramework.dll
+C:\Projetos\QuakeTeste\QuakeLogParse\QuakeLogParser\QuakeLogParser\bin\EntityFramework.xml
+C:\Projetos\QuakeTeste\QuakeLogParse\QuakeLogParser\QuakeLogParser\obj\Debug\QuakeLogParser.csproj.CoreCompileInputs.cache

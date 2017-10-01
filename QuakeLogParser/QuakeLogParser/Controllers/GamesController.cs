@@ -12,14 +12,50 @@ namespace QuakeLogParser.Controllers
     [RoutePrefix("api/v1/games")]
     public class GamesController : ApiController
     {
-        [HttpGet]
+        QuakeEntities bd = new QuakeEntities();
+
+        [HttpPost]
         [Route("")]
-        public HttpResponseMessage ObterPartidas()
+        public HttpResponseMessage IncluirPartidas()
         {
-            return Request.CreateResponse(HttpStatusCode.OK, QuakeLogParser());
+            try
+            {
+                var partidas = QuakeLogParser();
+
+                if (bd.game.Count() > 0)
+                {
+                    return Request.CreateResponse(HttpStatusCode.Forbidden, "Os dados já foram persistidos no Banco de dados.");
+                }
+
+                using (bd)
+                {
+                    foreach (var partida in partidas)
+                    {
+                        bd.game.Add(partida);
+
+                        foreach (var jogador in partida.player)
+                        {
+                            partida.player.Add(jogador);
+                        }
+                    }
+
+                    bd.SaveChanges();
+                }
+
+
+                return Request.CreateResponse(HttpStatusCode.Created, "Informações persistidos no banco de dados.");
+            }
+            catch (Exception ex)
+            {
+                var erro = ex.Message;
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Falha ao cadastrar informações no banco");
+            }
+            
         }
 
-        private List<Game> QuakeLogParser()
+        
+
+        private List<game> QuakeLogParser()
         {
             var count = 1;
             var from = "";
@@ -29,14 +65,15 @@ namespace QuakeLogParser.Controllers
 
             var getGames = quakeLog.Split(new string[] { "------------------------------------------------------------" }, StringSplitOptions.None);
 
-            List<Game> games = new List<Game>();
+            List<game> games = new List<game>();
 
             foreach (var gameInfo in getGames)
             {
                 if (gameInfo.Contains("InitGame:"))
                 {
-                    var g = new Game();
-                    g.Players = new List<Player>();
+                    var g = new game();
+                    g.player = new List<player>();
+                    g.TotalKills = 0;
 
                     var getPlayers = gameInfo.Split(new string[] { "ClientUserinfoChanged:" }, StringSplitOptions.None);
 
@@ -46,11 +83,12 @@ namespace QuakeLogParser.Controllers
                         {
                             from = @" n\";
                             to = @"\t\";
-                            var jogador = new Player();
+                            var jogador = new player();
                             jogador.Name = FindString(getplayer, from, to);
-                            if (!g.Players.Any(model => model.Name.Equals(jogador.Name)))
+                            if (!g.player.Any(model => model.Name.Equals(jogador.Name)))
                             {
-                                g.Players.Add(jogador);
+                                jogador.Kills = 0;
+                                g.player.Add(jogador);
                             }
                         }
                     }
@@ -67,7 +105,7 @@ namespace QuakeLogParser.Controllers
                             var killerPlayer = FindString(kill, from, to);
                             if (!killerPlayer.Contains("<world>"))
                             {
-                                var ja = g.Players.Where(model => model.Name.Equals(killerPlayer)).FirstOrDefault();
+                                var ja = g.player.Where(model => model.Name.Equals(killerPlayer)).FirstOrDefault();
                                 if (ja != null)
                                 {
                                     ja.Kills++;
@@ -82,8 +120,8 @@ namespace QuakeLogParser.Controllers
                             from = "<world> killed ";
                             to = " by";
                             var worldKilledJogador = FindString(kill, from, to);
-                            var j = g.Players.Where(model => model.Name.Equals(worldKilledJogador)).FirstOrDefault();
-                            if (j != null /*&& j.Kills != 0*/)
+                            var j = g.player.Where(model => model.Name.Equals(worldKilledJogador)).FirstOrDefault();
+                            if (j != null && j.Kills != 0)
                             {
                                 j.Kills--;
                             }
