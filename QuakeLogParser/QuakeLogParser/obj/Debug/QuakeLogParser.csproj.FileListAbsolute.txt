@@ -78,3 +78,6 @@ C:\Projetos\QuakeTeste\QuakeLogParse\QuakeLogParser\QuakeLogParser\bin\System.We
 C:\Projetos\QuakeTeste\QuakeLogParse\QuakeLogParser\QuakeLogParser\bin\EntityFramework.dll
 C:\Projetos\QuakeTeste\QuakeLogParse\QuakeLogParser\QuakeLogParser\bin\EntityFramework.xml
 C:\Projetos\QuakeTeste\QuakeLogParse\QuakeLogParser\QuakeLogParser\obj\Debug\QuakeLogParser.csproj.CoreCompileInputs.cache
+C:\Projetos\QuakeTeste\QuakeLogParse\QuakeLogParser\QuakeLogParser\bin\EntityFramework.SqlServer.dll
+C:\Projetos\QuakeTeste\QuakeLogParse\QuakeLogParser\QuakeLogParser\bin\EntityFramework.SqlServer.xml
+C:\Projetos\QuakeTeste\QuakeLogParse\QuakeLogParser\QuakeLogParser\obj\Debug\QuakeLogParser.csprojResolveAssemblyReference.cache

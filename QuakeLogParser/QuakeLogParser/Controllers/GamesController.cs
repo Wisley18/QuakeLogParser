@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using QuakeLogParser.Models;
+using System.Data.Entity;
 
 namespace QuakeLogParser.Controllers
 {
@@ -16,7 +17,7 @@ namespace QuakeLogParser.Controllers
 
         [HttpPost]
         [Route("")]
-        public HttpResponseMessage IncluirPartidas()
+        public HttpResponseMessage PersistirInfo()
         {
             try
             {
@@ -35,7 +36,7 @@ namespace QuakeLogParser.Controllers
 
                         foreach (var jogador in partida.player)
                         {
-                            partida.player.Add(jogador);
+                            bd.player.Add(jogador);
                         }
                     }
 
@@ -53,8 +54,24 @@ namespace QuakeLogParser.Controllers
             
         }
 
-        
+        [HttpGet]
+        [Route("bd")]
+        public HttpResponseMessage ObterInfoBd()
+        {
+            var games = bd.game.Include(m => m.player).ToList();
 
+            var result  = from g in games select new { Game = g.Name, TotalKills = g.TotalKills, TotalPlayers = g.player.Count(), Players = from p in g.player select new { name = p.Name, kills = p.Kills} };
+
+            return Request.CreateResponse(HttpStatusCode.OK, result);
+        }
+
+        [HttpGet]
+        [Route("file")]
+        public HttpResponseMessage ObterInfoArquivo()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, QuakeLogParser());
+        }
+        
         private List<game> QuakeLogParser()
         {
             var count = 1;
@@ -83,12 +100,12 @@ namespace QuakeLogParser.Controllers
                         {
                             from = @" n\";
                             to = @"\t\";
-                            var jogador = new player();
-                            jogador.Name = FindString(getplayer, from, to);
-                            if (!g.player.Any(model => model.Name.Equals(jogador.Name)))
+                            var player = new player();
+                            player.Name = FindString(getplayer, from, to);
+                            if (!g.player.Any(model => model.Name.Equals(player.Name)))
                             {
-                                jogador.Kills = 0;
-                                g.player.Add(jogador);
+                                player.Kills = 0;
+                                g.player.Add(player);
                             }
                         }
                     }
@@ -125,17 +142,13 @@ namespace QuakeLogParser.Controllers
                             {
                                 j.Kills--;
                             }
-
                         }
                     }
-
                     g.Name = string.Format("game_{0}", count++);
                     games.Add(g);
                 }
             }
-
             return games;
-
         }
 
 
