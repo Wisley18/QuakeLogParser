@@ -4,9 +4,7 @@ Obtém as informações do arquivo games.log do jogo Quake Arena 3, agrupa as in
 ## Pré-requisitos
 
 - Visual Studio [https://www.visualstudio.com/thank-you-downloading-visual-studio/?sku=Community&rel=15#]
-- MySQL Workbench [https://dev.mysql.com/downloads/workbench/]
-- MySql [https://dev.mysql.com/downloads/mysql/]
-- Conector MySql [https://dev.mysql.com/downloads/connector/net/]
+- MySql Server 5.6, MySQL Workbench 6.3, MySql Conector 6.9.9 [https://dev.mysql.com/downloads/windows/installer/5.6.html] 
 
 ## O que foi feito
 Criei uma API utilizando ASP.NET WEB API que contém uma rota que retorna os dados do arquivo, e outra rota que cadastra os dados do arquivo no banco e os retorna em formato JSON.
