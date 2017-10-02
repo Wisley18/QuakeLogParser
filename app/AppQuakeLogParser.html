@@ -43,10 +43,10 @@
 					$("#apresenta-dados").append('<div>' + data[i].Name +'</div>');
 					$("#apresenta-dados").append('<div>' + 'Total kills: ' + data[i].TotalKills +'</div>');
 					$("#apresenta-dados").append('<div>' + 'Players :' +'</div>');
-					var qtdePlayers = data[i].player.length;
+					var qtdePlayers = data[i].Player.length;
 					for (j = 0; j<qtdePlayers; j++)
 					{
-						$("#apresenta-dados").append('<div style="margin-left: 30px;">' + '<p>' + data[i].player[j].Name + ': ' + data[i].player[j].Kills + '</p>' + '</div>');
+						$("#apresenta-dados").append('<div style="margin-left: 30px;">' + '<p>' + data[i].Player[j].Name + ': ' + data[i].Player[j].Kills + '</p>' + '</div>');
 					}
 						
 					$("#apresenta-dados").append('<hr>');
