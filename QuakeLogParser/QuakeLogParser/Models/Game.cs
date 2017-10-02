@@ -12,17 +12,17 @@ namespace QuakeLogParser.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class game
+    public partial class Game
     {
-        public game()
+        public Game()
         {
-            this.player = new HashSet<player>();
+            this.Player = new HashSet<Player>();
         }
     
         public long Id { get; set; }
         public string Name { get; set; }
         public Nullable<int> TotalKills { get; set; }
     
-        public virtual ICollection<player> player { get; set; }
+        public virtual ICollection<Player> Player { get; set; }
     }
 }

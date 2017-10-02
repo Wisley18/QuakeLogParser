@@ -21,16 +21,16 @@ namespace QuakeLogParser.Controllers
         {
             var partidas = QuakeLogParser();
 
-            if (bd.Game.Count() <= 0)
+            if (bd.game.Count() <= 0)
             {
 
                 foreach (var partida in partidas)
                 {
-                    bd.Game.Add(partida);
+                    bd.game.Add(partida);
 
-                    foreach (var jogador in partida.Player)
+                    foreach (var jogador in partida.player)
                     {
-                        bd.Player.Add(jogador);
+                        bd.player.Add(jogador);
                     }
                 }
 
@@ -38,9 +38,9 @@ namespace QuakeLogParser.Controllers
 
             }
 
-            var games = bd.Game.Include(m => m.Player).ToList();
+            var games = bd.game.Include(m => m.player).ToList();
 
-            var result = from g in games select new { Game = g.Name, TotalKills = g.TotalKills, TotalPlayers = g.Player.Count(), Players = from p in g.Player select new { name = p.Name, kills = p.Kills } };
+            var result  = from g in games select new { Game = g.Name, TotalKills = g.TotalKills, TotalPlayers = g.player.Count(), Players = from p in g.player select new { name = p.Name, kills = p.Kills} };
 
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
@@ -52,7 +52,7 @@ namespace QuakeLogParser.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, QuakeLogParser());
         }
         
-        public List<Game> QuakeLogParser()
+        public List<game> QuakeLogParser()
         {
             var count = 1;
             var from = "";
@@ -62,14 +62,14 @@ namespace QuakeLogParser.Controllers
 
             var getGames = quakeLog.Split(new string[] { "------------------------------------------------------------" }, StringSplitOptions.None);
 
-            List<Game> games = new List<Game>();
+            List<game> games = new List<game>();
 
             foreach (var gameInfo in getGames)
             {
                 if (gameInfo.Contains("InitGame:"))
                 {
-                    var g = new Game();
-                    g.Player = new List<Player>();
+                    var g = new game();
+                    g.player = new List<player>();
                     g.TotalKills = 0;
 
                     var getPlayers = gameInfo.Split(new string[] { "ClientUserinfoChanged:" }, StringSplitOptions.None);
@@ -80,12 +80,12 @@ namespace QuakeLogParser.Controllers
                         {
                             from = @" n\";
                             to = @"\t\";
-                            var player = new Player();
+                            var player = new player();
                             player.Name = FindString(getplayer, from, to);
-                            if (!g.Player.Any(model => model.Name.Equals(player.Name)))
+                            if (!g.player.Any(model => model.Name.Equals(player.Name)))
                             {
                                 player.Kills = 0;
-                                g.Player.Add(player);
+                                g.player.Add(player);
                             }
                         }
                     }
@@ -102,7 +102,7 @@ namespace QuakeLogParser.Controllers
                             var killerPlayer = FindString(kill, from, to);
                             if (!killerPlayer.Contains("<world>"))
                             {
-                                var ja = g.Player.Where(model => model.Name.Equals(killerPlayer)).FirstOrDefault();
+                                var ja = g.player.Where(model => model.Name.Equals(killerPlayer)).FirstOrDefault();
                                 if (ja != null)
                                 {
                                     ja.Kills++;
@@ -117,7 +117,7 @@ namespace QuakeLogParser.Controllers
                             from = "<world> killed ";
                             to = " by";
                             var worldKilledJogador = FindString(kill, from, to);
-                            var j = g.Player.Where(model => model.Name.Equals(worldKilledJogador)).FirstOrDefault();
+                            var j = g.player.Where(model => model.Name.Equals(worldKilledJogador)).FirstOrDefault();
                             if (j != null && j.Kills != 0)
                             {
                                 j.Kills--;

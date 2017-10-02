@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="QuakeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="game">
+  <EntityType Name="Game">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
     <Property Name="TotalKills" Type="Int32" />
-    <NavigationProperty Name="player" Relationship="Self.fk_Player_Game" FromRole="game" ToRole="player" />
+    <NavigationProperty Name="Player" Relationship="Self.fk_Player_Game" FromRole="Game" ToRole="Player" />
   </EntityType>
-  <EntityType Name="player">
+  <EntityType Name="Player">
     <Key>
       <PropertyRef Name="id" />
     </Key>
@@ -17,26 +17,26 @@
     <Property Name="idGame" Type="Int64" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
     <Property Name="Kills" Type="Int32" />
-    <NavigationProperty Name="game" Relationship="Self.fk_Player_Game" FromRole="player" ToRole="game" />
+    <NavigationProperty Name="Game" Relationship="Self.fk_Player_Game" FromRole="Player" ToRole="Game" />
   </EntityType>
   <Association Name="fk_Player_Game">
-    <End Role="game" Type="Self.game" Multiplicity="1" />
-    <End Role="player" Type="Self.player" Multiplicity="*" />
+    <End Role="Game" Type="Self.Game" Multiplicity="1" />
+    <End Role="Player" Type="Self.Player" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="game">
+      <Principal Role="Game">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="player">
+      <Dependent Role="Player">
         <PropertyRef Name="idGame" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="QuakeEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="game" EntityType="Self.game" />
-    <EntitySet Name="player" EntityType="Self.player" />
+    <EntitySet Name="Game" EntityType="Self.Game" />
+    <EntitySet Name="Player" EntityType="Self.Player" />
     <AssociationSet Name="fk_Player_Game" Association="Self.fk_Player_Game">
-      <End Role="game" EntitySet="game" />
-      <End Role="player" EntitySet="player" />
+      <End Role="Game" EntitySet="Game" />
+      <End Role="Player" EntitySet="Player" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

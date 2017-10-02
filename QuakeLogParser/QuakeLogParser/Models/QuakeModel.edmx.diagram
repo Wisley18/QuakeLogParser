@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b7dd4245b27743a8aa5752d1155a95d5" Name="Diagram1">
-        <EntityTypeShape EntityType="QuakeModel.game" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuakeModel.player" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+      <Diagram DiagramId="cd453e50fafc4d66955d2e5f0b98dd7d" Name="Diagram1">
+        <EntityTypeShape EntityType="QuakeModel.Game" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuakeModel.Player" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="QuakeModel.fk_Player_Game" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

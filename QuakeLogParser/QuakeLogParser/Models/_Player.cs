@@ -4,7 +4,7 @@ using System.Text;
 
 namespace QuakeLogParser.Models
 {
-    public partial class player
+    public partial class Player
     {
         
 

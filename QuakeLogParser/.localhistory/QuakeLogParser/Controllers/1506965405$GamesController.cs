@@ -62,14 +62,14 @@ namespace QuakeLogParser.Controllers
 
             var getGames = quakeLog.Split(new string[] { "------------------------------------------------------------" }, StringSplitOptions.None);
 
-            List<Game> games = new List<Game>();
+            List<game> games = new List<game>();
 
             foreach (var gameInfo in getGames)
             {
                 if (gameInfo.Contains("InitGame:"))
                 {
-                    var g = new Game();
-                    g.Player = new List<Player>();
+                    var g = new game();
+                    g.player = new List<player>();
                     g.TotalKills = 0;
 
                     var getPlayers = gameInfo.Split(new string[] { "ClientUserinfoChanged:" }, StringSplitOptions.None);
@@ -80,12 +80,12 @@ namespace QuakeLogParser.Controllers
                         {
                             from = @" n\";
                             to = @"\t\";
-                            var player = new Player();
+                            var player = new player();
                             player.Name = FindString(getplayer, from, to);
-                            if (!g.Player.Any(model => model.Name.Equals(player.Name)))
+                            if (!g.player.Any(model => model.Name.Equals(player.Name)))
                             {
                                 player.Kills = 0;
-                                g.Player.Add(player);
+                                g.player.Add(player);
                             }
                         }
                     }
@@ -102,7 +102,7 @@ namespace QuakeLogParser.Controllers
                             var killerPlayer = FindString(kill, from, to);
                             if (!killerPlayer.Contains("<world>"))
                             {
-                                var ja = g.Player.Where(model => model.Name.Equals(killerPlayer)).FirstOrDefault();
+                                var ja = g.player.Where(model => model.Name.Equals(killerPlayer)).FirstOrDefault();
                                 if (ja != null)
                                 {
                                     ja.Kills++;
@@ -117,7 +117,7 @@ namespace QuakeLogParser.Controllers
                             from = "<world> killed ";
                             to = " by";
                             var worldKilledJogador = FindString(kill, from, to);
-                            var j = g.Player.Where(model => model.Name.Equals(worldKilledJogador)).FirstOrDefault();
+                            var j = g.player.Where(model => model.Name.Equals(worldKilledJogador)).FirstOrDefault();
                             if (j != null && j.Kills != 0)
                             {
                                 j.Kills--;

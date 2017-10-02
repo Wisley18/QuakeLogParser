@@ -12,13 +12,13 @@ namespace QuakeLogParser.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class player
+    public partial class Player
     {
         public long id { get; set; }
         public long idGame { get; set; }
         public string Name { get; set; }
         public Nullable<int> Kills { get; set; }
     
-        public virtual game game { get; set; }
+        public virtual Game Game { get; set; }
     }
 }

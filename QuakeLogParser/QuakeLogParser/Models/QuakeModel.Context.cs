@@ -25,7 +25,7 @@ namespace QuakeLogParser.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<game> game { get; set; }
-        public DbSet<player> player { get; set; }
+        public DbSet<Game> Game { get; set; }
+        public DbSet<Player> Player { get; set; }
     }
 }

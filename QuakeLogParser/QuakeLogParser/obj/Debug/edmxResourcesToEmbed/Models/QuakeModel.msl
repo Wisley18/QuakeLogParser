@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="QuakeModelStoreContainer" CdmEntityContainer="QuakeEntities">
-    <EntitySetMapping Name="game">
-      <EntityTypeMapping TypeName="QuakeModel.game">
-        <MappingFragment StoreEntitySet="game">
+    <EntitySetMapping Name="Game">
+      <EntityTypeMapping TypeName="QuakeModel.Game">
+        <MappingFragment StoreEntitySet="Game">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="TotalKills" ColumnName="TotalKills" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="player">
-      <EntityTypeMapping TypeName="QuakeModel.player">
-        <MappingFragment StoreEntitySet="player">
+    <EntitySetMapping Name="Player">
+      <EntityTypeMapping TypeName="QuakeModel.Player">
+        <MappingFragment StoreEntitySet="Player">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="idGame" ColumnName="idGame" />
           <ScalarProperty Name="Name" ColumnName="Name" />

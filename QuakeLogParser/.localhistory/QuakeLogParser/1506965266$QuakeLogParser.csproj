@@ -112,10 +112,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Game.cs">
+    <Compile Include="Models\game.cs">
       <DependentUpon>QuakeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Player.cs">
+    <Compile Include="Models\player.cs">
       <DependentUpon>QuakeModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\QuakeModel.Context.cs">
